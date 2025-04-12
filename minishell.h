@@ -6,7 +6,7 @@
 /*   By: akemmoun <akemmoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 19:32:00 by akemmoun          #+#    #+#             */
-/*   Updated: 2025/04/12 14:54:33 by akemmoun         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:47:48 by akemmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <readline/readline.h>
+#include "libft.h"
 // #include <readline/history.h>
 
 typedef enum e_token_type
