@@ -17,9 +17,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <readline/readline.h>
-#include "libft.h"
+#include "libft/libft.h"
 // #include <readline/history.h>
 
+/*--------------structers--------------*/
 typedef enum e_token_type
 {
 	WORD,
@@ -37,6 +38,11 @@ typedef struct s_token
 	struct s_token *next;
 }	t_token;
 
-
+/*--------------end of structers--------------*/
+/*--------------fct_prototype----------------*/
+void    parsing(char *input, t_token **token);
+void	lexer(char *input);
+void	word_case(char *input, int *i, t_token **token_list);
+void	add_token(t_token **head, char *value, t_token_type type);
 
 # endif
