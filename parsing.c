@@ -14,7 +14,7 @@
 
 void    parsing(char *input, t_token **token)
 {
-    if (!input || !token || !(*token))
+    if (!input || !token)
         return ;
     if (*input == '|')
     {
@@ -23,9 +23,9 @@ void    parsing(char *input, t_token **token)
     }
     if ((*token)->type == WORD)
     {
-        if ((*token)->value == "echo")
+        if (ft_strncmp((*token)->value, "echo", 4))
         {
-            if (((*token)->next->value == "-n"))
+            if (ft_strncmp((*token)->next->value, "-n", 2))
             {
                 //To_do later in execution, write without \n
             }
