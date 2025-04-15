@@ -44,6 +44,7 @@ void	ft_echo(t_token **token)
 					write(1, s, 1);
 					s++;
 				}
+				write(1, "\n", 1);
 			}
 			else
 				return ;
