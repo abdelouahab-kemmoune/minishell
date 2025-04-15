@@ -12,25 +12,54 @@
 
 #include "minishell.h"
 
+void	ft_echo(t_token **token)
+{
+	char	*s;
+
+	if ((*token)->type == WORD)
+	{
+		if (ft_strncmp((*token)->value, "echo", 4) == 0)
+		{
+			*token = (*token)->next;
+			if (ft_strncmp((*token)->value, "-n", 2) == 0)
+			{
+				*token = (*token)->next;
+				if ((*token)->type == WORD)
+				{
+					s = (*token)->value;
+					while (*s)
+					{
+						write(1, s, 1);
+						s++;
+					}
+				}
+				else
+					return ;
+			}
+			else if ((*token)->type == WORD)
+			{
+				s = (*token)->value;
+				while (*s)
+				{
+					write(1, s, 1);
+					s++;
+				}
+			}
+			else
+				return ;
+		}
+	}
+}
+
 void    parsing(char *input, t_token **token)
 {
-    if (!input || !token)
-        return ;
-    if (*input == '|')
-    {
-        write(1, "minishell: parse error near `|'", ft_strlen("minishell: parse error near `|'"));
-        exit (1);
-    }
-    if ((*token)->type == WORD)
-    {
-        if (ft_strncmp((*token)->value, "echo", 4) == 0)
-        {
-            if (ft_strncmp((*token)->next->value, "-n", 2) == 0)
-            {
-                //To_do later in execution: write without \n
-            }
-            //To_do later in execution: write with \n
-        }
-        // else if ()
-    }
+	char	*s;
+
+	if (!input || !token)
+		return ;
+	if (*input == '|')
+	{
+		write(1, "minishell: parse error near `|'", ft_strlen("minishell: parse error near `|'"));
+		exit (1);
+	}
 }
