@@ -66,4 +66,15 @@ void    parsing(char *input, t_token **token)
 		write(1, "minishell: parse error near `|'", ft_strlen("minishell: parse error near `|'"));
 		exit (1);
 	}
+	else if (*input == '(')
+	{
+		write(1, "minishell: unclosed parenthesis `('", ft_strlen("minishell: unclosed parenthesis `('"));
+		exit (1);
+	}
+	else if (*input == 39)
+	{
+		write(1, "minishell: parse error near `\''", ft_strlen("minishell: unclosed parenthesis `('"));
+		exit (1);
+	}
+	ft_echo(token);
 }
