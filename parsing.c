@@ -12,6 +12,22 @@
 
 #include "minishell.h"
 
+static void	ft_echo_helper(t_token **token, char *s)
+{
+	*token = (*token)->next;
+	if ((*token)->type == WORD)
+	{
+		s = (*token)->value;
+		while (*s)
+		{
+			write(1, s, 1);
+			s++;
+		}
+	}
+	else
+		return ;
+}
+
 void	ft_echo(t_token **token)
 {
 	char	*s;
@@ -22,20 +38,7 @@ void	ft_echo(t_token **token)
 		{
 			*token = (*token)->next;
 			if (ft_strncmp((*token)->value, "-n", 2) == 0)
-			{
-				*token = (*token)->next;
-				if ((*token)->type == WORD)
-				{
-					s = (*token)->value;
-					while (*s)
-					{
-						write(1, s, 1);
-						s++;
-					}
-				}
-				else
-					return ;
-			}
+				ft_echo_helper(token, &s);
 			else if ((*token)->type == WORD)
 			{
 				s = (*token)->value;
