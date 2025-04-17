@@ -6,12 +6,11 @@
 /*   By: akemmoun <akemmoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 19:32:00 by akemmoun          #+#    #+#             */
-/*   Updated: 2025/04/12 20:54:28 by akemmoun         ###   ########.fr       */
+/*   Updated: 2025/04/13 17:19:14 by akemmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	add_token(t_token **head, char *value, t_token_type type)
 {
@@ -40,22 +39,44 @@ void	word_case(char *input, int *i, t_token **token_list)
 {
 	int start;
 	char *word;
+	char quote;
 
-	start = *i;
-	while (input[*i] && input[*i] != ' ' && input[*i] != '\t' && \
-	input[*i] !='|' && input[*i] != '>' && input[*i] != '<')
-		i++;
-	word = strndup(&input[start], *i - start);
-	add_token(&token_list, word, WORD);
-	free(word);
+	if (input[*i] == '"' || input[*i] == '\'')
+	{
+		quote = input[*i];
+		if (!is_quote_closed(input, quote, *i + 1))
+		{
+			print_error("Unclosed quote");
+			return ;
+		}
+		(*i)++;
+		start = *i;
+		while (input[*i] && input[*i] != quote)
+			(*i)++;
+		word = ft_substr(input, start, *i - start);
+		add_token(token_list, word, WORD);
+		free(word);
+		if (input[*i] == quote)
+			(*i)++;
+	}
+	else
+	{
+		start = *i;
+		while (input[*i] && input[*i] != ' ' && input[*i] != '\t' && \
+		input[*i] !='|' && input[*i] != '>' && input[*i] != '<')
+			(*i)++;
+		word = ft_substr(input, start, *i - start);
+		add_token(token_list, word, WORD);
+		free(word);
+	}		
 }
 
-
-void	lexer(char *input)
+t_token *lexer(char *input)
 {
 	t_token *token_list;
 	int i = 0;
 
+	token_list = NULL;
 	while (input[i])
 	{
 		while (input[i] == ' ' || input[i] == '\t')
@@ -71,7 +92,7 @@ void	lexer(char *input)
 			}
 			else 
 			{
-				add_token(&token_list, ">", REDIR_IN);
+				add_token(&token_list, ">", REDIR_OUT);
 				i++;
 			}
 		}
@@ -91,4 +112,5 @@ void	lexer(char *input)
 		else
 			word_case(input, &i, &token_list);
 	}
+	return (token_list);
 }

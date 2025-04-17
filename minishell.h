@@ -6,7 +6,7 @@
 /*   By: akemmoun <akemmoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 19:32:00 by akemmoun          #+#    #+#             */
-/*   Updated: 2025/04/12 16:47:48 by akemmoun         ###   ########.fr       */
+/*   Updated: 2025/04/13 17:17:43 by akemmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,10 @@ void    parsing(char *input, t_token **token);
 void	lexer(char *input);
 void	word_case(char *input, int *i, t_token **token_list);
 void	add_token(t_token **head, char *value, t_token_type type);
+
+/*-------------errors-------------*/
+
+int is_quote_closed(char *input, char quote, int start);
+void print_error(char *msg);
 
 # endif
